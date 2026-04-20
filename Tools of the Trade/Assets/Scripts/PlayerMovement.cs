@@ -63,10 +63,11 @@ public class PlayerMovement : MonoBehaviour
         Vector3 moveVector = CurrentSpeed * Time.deltaTime * moveDirection;
         controller.Move(moveVector);
 
-        // animation
+        // animation & visuals
+        animator.SetFloat(speedHash, SpeedProgress); // Update the animator with the movement speed
+        Debug.Log($"speed progress: {SpeedProgress}");
         if (moveDirection != Vector3.zero)
         {
-            animator.SetFloat(speedHash, SpeedProgress); // Update the animator with the movement speed
             body.transform.rotation = Quaternion.LookRotation(moveDirection.normalized); // Rotate the body to face the movement direction
         }
         else

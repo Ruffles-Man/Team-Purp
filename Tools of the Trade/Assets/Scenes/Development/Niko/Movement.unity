@@ -292,7 +292,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f873a8336add0c43a092ace8cf90af3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveSpeed: 5
+  SmoothMoveInput: {x: 0, y: 0}
+  smoothTime: 0.25
+  sprintMultiplier: 2.2
+  moveSpeed: 3
   body: {fileID: 1700968211}
 --- !u!143 &600352398
 CharacterController:
