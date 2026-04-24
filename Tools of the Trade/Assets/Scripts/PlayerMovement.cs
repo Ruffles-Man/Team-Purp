@@ -1,25 +1,45 @@
+using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-    public float MaxSpeed => moveSpeed * sprintMultiplier;
-    public float CurrentSpeed => moveSpeed + AddativeSprintSpeed;
-    public float AddativeSprintSpeed => moveSpeed * SprintProgress * (sprintMultiplier - 1f);
-    public float SpeedProgress => SmoothMoveInput.magnitude * CurrentSpeed / MaxSpeed; // Calculate speed as a percentage of max speed
-    public float SprintProgress => Mathf.Clamp01(elapsedSprintTime / timeToMaxSprint);
+    /// <summary>
+    /// Max speed is the maximum speed the player can reach when sprinting at full speed.
+    /// </summary>
+    protected float MaxSpeed => moveSpeed * sprintMultiplier;
 
-    public Vector2 SmoothMoveInput = Vector2.zero;
+    /// <summary>
+    /// Current speed is the player's current speed based on their base move speed and any sprinting bonus.
+    /// </summary>
+    protected float CurrentSpeed => moveSpeed + BonusSpeed;
+
+    /// <summary>
+    /// Bonus speed is any additional speed gained from sprinting.
+    /// </summary>
+    protected float BonusSpeed => moveSpeed * SprintProgress * (sprintMultiplier - 1f);
+
+    /// <summary>
+    /// Speed progress is a value between 0 and 1 representing how fast the player is moving for animation purposes.
+    /// </summary>
+    protected float SpeedProgress => SmoothMoveInput.magnitude * CurrentSpeed / MaxSpeed; // Calculate speed as a percentage of max speed
+
+    /// <summary>
+    /// Sprint progress is a value between 0 and 1 representing how much of the sprint speed bonus is currently applied based on how long the player has been sprinting.
+    /// </summary>
+    protected float SprintProgress => Mathf.Clamp01(elapsedSprintTime / timeToMaxSprint);
+
     [SerializeField] private float smoothTime = 0.25f;
     [SerializeField] private float sprintMultiplier = 1.5f;
     [SerializeField] private float timeToMaxSprint = 1f;
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField, HideInInspector] GameObject body;
+    protected Vector2 SmoothMoveInput = Vector2.zero;
+
 
     private CharacterController controller;
     private Animator animator;
-    private InputSystem_Actions inputActions;
     private Vector2 velocity = Vector2.zero;
     private bool sprinting = false;
     private float elapsedSprintTime = 0f;
@@ -31,26 +51,19 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
-        inputActions = new InputSystem_Actions();
     }
 
-    void OnEnable()
+    public void LockMovement()
     {
-        inputActions.Enable();
+        enabled = false;
     }
 
-    void OnDisable()
+    public void UnlockMovement()
     {
-        inputActions.Disable();
+        enabled = true;
     }
 
-    void Update()
-    {
-        HandleSprint(inputActions);
-        HandleMove(inputActions);
-    }
-
-    private void HandleSprint(InputSystem_Actions actions)
+    public void PerformSprint(InputSystem_Actions actions)
     {
         // set sprint time based on input
         if (actions.Player.Sprint.WasPressedThisFrame())
@@ -76,14 +89,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void HandleMove(InputSystem_Actions actions)
+    public void PerformMove(InputSystem_Actions actions)
     {
         // input processing
         Vector2 moveInput = actions.Player.Move.ReadValue<Vector2>();
         SmoothMoveInput = Vector2.SmoothDamp(SmoothMoveInput, moveInput, ref velocity, smoothTime); 
        
         // movement
-        Vector3 moveDirection = new(SmoothMoveInput.x, 0, SmoothMoveInput.y);
+        Vector3 moveDirection = new(SmoothMoveInput.x, 0f, SmoothMoveInput.y);
         moveDirection = transform.TransformDirection(moveDirection); // Convert local movement to world space
         Vector3 moveVector = CurrentSpeed * Time.deltaTime * moveDirection;
         controller.Move(moveVector);
@@ -93,10 +106,6 @@ public class PlayerMovement : MonoBehaviour
         if (moveDirection != Vector3.zero)
         {
             body.transform.rotation = Quaternion.LookRotation(moveDirection.normalized); // Rotate the body to face the movement direction
-        }
-        else
-        {
-            animator.SetFloat(speedHash, 0); // Set speed to 0 when not moving
         }
     }
 }
