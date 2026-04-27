@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : LockableMonoBehavior
 {
     /// <summary>
     /// Max speed is the maximum speed the player can reach when sprinting at full speed.
@@ -51,16 +51,6 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
-    }
-
-    public void LockMovement()
-    {
-        enabled = false;
-    }
-
-    public void UnlockMovement()
-    {
-        enabled = true;
     }
 
     public void PerformSprint(InputSystem_Actions actions)

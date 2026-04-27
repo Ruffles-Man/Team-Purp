@@ -260,6 +260,7 @@ GameObject:
   - component: {fileID: 600352397}
   - component: {fileID: 600352399}
   - component: {fileID: 600352401}
+  - component: {fileID: 600352402}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -295,6 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f873a8336add0c43a092ace8cf90af3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  _Locked: 0
   smoothTime: 0.25
   sprintMultiplier: 2.2
   timeToMaxSprint: 1
@@ -337,6 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcafeb888816ce448834f1168eb832cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDash
+  _Locked: 0
   dashDuration: 0.5
   dashDistance: 3
 --- !u!114 &600352400
@@ -364,12 +367,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32df045de3790f342b050d45be286e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerJump
+  _Locked: 0
   jumpHeight: 2
   numJumps: 2
   groundDistance: 0.2
   groundMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &600352402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 600352394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9e3ef22fbe3e864ca2f7ebea1ecfa73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCrouch
+  _Locked: 0
+  crouchSpeed: 3.5
+  smoothTime: 0.25
+  body: {fileID: 1700968211}
 --- !u!1 &907587878
 GameObject:
   m_ObjectHideFlags: 0

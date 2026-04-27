@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerJump : MonoBehaviour
+public class PlayerJump : LockableMonoBehavior
 {
     [SerializeField] private float jumpHeight = 5f;
     [SerializeField] int numJumps = 2;

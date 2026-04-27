@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerMovement))]
-public class PlayerDash : MonoBehaviour
+public class PlayerDash : LockableMonoBehavior
 {
     [Tooltip("Duration of the dash in seconds")]
     [SerializeField] private float dashDuration = 0.2f;
@@ -22,10 +22,19 @@ public class PlayerDash : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
+    public void LockDash()
+    {
+        enabled = false;
+    }
+
+    public void UnlockDash()
+    {
+        enabled = true;
+    }
+
     public IEnumerator Dash(Vector3 dashDirection)
     {
         float elapsedTime = 0f;
-        float dashDuration = 0.2f; // Duration of the dash in seconds
 
         // Play dash animation
         animator.SetBool(dashHash, true);
@@ -38,6 +47,5 @@ public class PlayerDash : MonoBehaviour
         }
 
         animator.SetBool(dashHash, false); // Stop dash animation
-        movement.UnlockMovement(); // Unlock movement after dash
     }
 }
