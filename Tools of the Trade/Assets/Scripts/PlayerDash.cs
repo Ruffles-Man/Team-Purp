@@ -3,13 +3,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(PlayerMovement))]
 public class PlayerDash : LockableMonoBehavior
 {
     [Tooltip("Duration of the dash in seconds")]
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashDistance = 4f;
-    private PlayerMovement movement;
     private CharacterController controller;
     private Animator animator;
 
@@ -17,7 +15,6 @@ public class PlayerDash : LockableMonoBehavior
 
     void Awake()
     {
-        movement = GetComponent<PlayerMovement>();
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
     }
