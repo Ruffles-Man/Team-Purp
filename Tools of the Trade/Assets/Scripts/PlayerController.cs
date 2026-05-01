@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerDash))]
 [RequireComponent(typeof(PlayerJump))]
 [RequireComponent(typeof(PlayerCrouch))]
+[RequireComponent(typeof(PlayerPunch))]
+[RequireComponent(typeof(PlayerKick))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField, HideInInspector] private GameObject body;
@@ -15,6 +17,10 @@ public class PlayerController : MonoBehaviour
     PlayerJump playerJump;
     PlayerCrouch playerCrouch;
 
+    // Attacks
+    PlayerPunch playerPunch;
+    PlayerKick playerKick;
+
     private InputSystem_Actions inputActions;
 
     void Awake()
@@ -23,6 +29,9 @@ public class PlayerController : MonoBehaviour
         playerDash = GetComponent<PlayerDash>();
         playerJump = GetComponent<PlayerJump>();
         playerCrouch = GetComponent<PlayerCrouch>();
+
+        playerPunch = GetComponent<PlayerPunch>();
+        playerKick = GetComponent<PlayerKick>();
 
         inputActions = new InputSystem_Actions();
     }
@@ -34,6 +43,8 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.Jump.performed += HandleJump;
         inputActions.Player.Crouch.performed += HandleCrouch;
         inputActions.Player.Crouch.canceled += HandleCrouch;
+        inputActions.Player.AttackOne.performed += HandlePunch;
+        inputActions.Player.AttackTwo.performed += HandleKick;
     }
 
     void OnDisable()
@@ -43,6 +54,8 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.Jump.performed -= HandleJump;
         inputActions.Player.Crouch.performed -= HandleCrouch;
         inputActions.Player.Crouch.canceled -= HandleCrouch;
+        inputActions.Player.AttackOne.performed -= HandlePunch;
+        inputActions.Player.AttackTwo.performed -= HandleKick;
     }
 
     void Update()
@@ -92,6 +105,20 @@ public class PlayerController : MonoBehaviour
         yield return StartCoroutine(playerDash.Dash(body.transform.forward)); // Dash in the direction the player is facing
 
         playerMovement.Unlock();
+    }
+
+    protected void HandlePunch(InputAction.CallbackContext context)
+    {
+        if (playerJump._Locked) return;
+
+        playerPunch.PerformPunch();
+    }
+
+    protected void HandleKick(InputAction.CallbackContext context)
+    {
+        if (playerJump._Locked) return;
+
+        playerKick.PerformKick();
     }
 
 }
