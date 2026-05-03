@@ -6,8 +6,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerDash))]
 [RequireComponent(typeof(PlayerJump))]
 [RequireComponent(typeof(PlayerCrouch))]
-[RequireComponent(typeof(PlayerPunch))]
-[RequireComponent(typeof(PlayerKick))]
+[RequireComponent(typeof(PlayerAttack))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField, HideInInspector] private GameObject body;
@@ -16,10 +15,7 @@ public class PlayerController : MonoBehaviour
     PlayerDash playerDash;
     PlayerJump playerJump;
     PlayerCrouch playerCrouch;
-
-    // Attacks
-    PlayerPunch playerPunch;
-    PlayerKick playerKick;
+    PlayerAttack playerAttack;
 
     private InputSystem_Actions inputActions;
 
@@ -30,8 +26,7 @@ public class PlayerController : MonoBehaviour
         playerJump = GetComponent<PlayerJump>();
         playerCrouch = GetComponent<PlayerCrouch>();
 
-        playerPunch = GetComponent<PlayerPunch>();
-        playerKick = GetComponent<PlayerKick>();
+        playerAttack = GetComponent<PlayerAttack>();
 
         inputActions = new InputSystem_Actions();
     }
@@ -43,8 +38,8 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.Jump.performed += HandleJump;
         inputActions.Player.Crouch.performed += HandleCrouch;
         inputActions.Player.Crouch.canceled += HandleCrouch;
-        inputActions.Player.AttackOne.performed += HandlePunch;
-        inputActions.Player.AttackTwo.performed += HandleKick;
+        inputActions.Player.AttackOne.performed += HandleAttackOne;
+        inputActions.Player.AttackTwo.performed += HandleAttackTwo;
     }
 
     void OnDisable()
@@ -54,8 +49,8 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.Jump.performed -= HandleJump;
         inputActions.Player.Crouch.performed -= HandleCrouch;
         inputActions.Player.Crouch.canceled -= HandleCrouch;
-        inputActions.Player.AttackOne.performed -= HandlePunch;
-        inputActions.Player.AttackTwo.performed -= HandleKick;
+        inputActions.Player.AttackOne.performed -= HandleAttackOne;
+        inputActions.Player.AttackTwo.performed -= HandleAttackTwo;
     }
 
     void Update()
@@ -107,18 +102,30 @@ public class PlayerController : MonoBehaviour
         playerMovement.Unlock();
     }
 
-    protected void HandlePunch(InputAction.CallbackContext context)
+    protected void HandleAttackOne(InputAction.CallbackContext context)
     {
         if (playerJump._Locked) return;
 
-        playerPunch.PerformPunch();
+        if (playerCrouch._Locked) return;
+
+        playerMovement.Lock(); // Prevent sliding while punching
+
+        playerAttack.PerformAttackOne();
+
+        playerMovement.Unlock();
     }
 
-    protected void HandleKick(InputAction.CallbackContext context)
+    protected void HandleAttackTwo(InputAction.CallbackContext context)
     {
         if (playerJump._Locked) return;
 
-        playerKick.PerformKick();
+        if (playerCrouch._Locked) return;
+
+        playerMovement.Lock(); // Prevent sliding while punching
+
+        playerAttack.PerformAttackTwo();
+
+        playerMovement.Unlock();
     }
 
 }

@@ -333,6 +333,7 @@ GameObject:
   - component: {fileID: 600352399}
   - component: {fileID: 600352401}
   - component: {fileID: 600352402}
+  - component: {fileID: 600352403}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -458,6 +459,19 @@ MonoBehaviour:
   crouchSpeed: 3.5
   smoothTime: 0.25
   body: {fileID: 1065564620}
+--- !u!114 &600352403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 600352394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6100360ab0a4b964b8d829ff583c0b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
+  comboStep: 0
 --- !u!1 &907587878
 GameObject:
   m_ObjectHideFlags: 0
