@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(PlayerVFX))]
+
 public class PlayerMovement : LockableMonoBehavior
 {
     /// <summary>
@@ -38,6 +40,7 @@ public class PlayerMovement : LockableMonoBehavior
     protected Vector2 SmoothMoveInput = Vector2.zero;
 
 
+    private PlayerVFX playerVFX;
     private CharacterController controller;
     private Animator animator;
     private Vector2 velocity = Vector2.zero;
@@ -51,6 +54,7 @@ public class PlayerMovement : LockableMonoBehavior
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+        playerVFX = GetComponent<PlayerVFX>();
     }
 
     public void PerformSprint(InputSystem_Actions actions)
@@ -93,9 +97,15 @@ public class PlayerMovement : LockableMonoBehavior
 
         // animation & visuals
         animator.SetFloat(speedHash, SpeedProgress); // Update the animator with the movement speed
+        playerVFX.SetDustVFXEmissionRate(SpeedProgress); // Adjust dust emission based on movement speed
         if (moveDirection != Vector3.zero)
         {
+            playerVFX.PlayDustVFX(); // Play dust VFX when moving
             body.transform.rotation = Quaternion.LookRotation(moveDirection.normalized); // Rotate the body to face the movement direction
+        }
+        else
+        {
+            playerVFX.StopDustVFX(); // Stop dust VFX when not moving
         }
     }
 }
