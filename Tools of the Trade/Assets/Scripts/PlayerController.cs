@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerDash))]
 [RequireComponent(typeof(PlayerJump))]
 [RequireComponent(typeof(PlayerCrouch))]
+[RequireComponent(typeof(PlayerAttack))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField, HideInInspector] private GameObject body;
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour
     PlayerDash playerDash;
     PlayerJump playerJump;
     PlayerCrouch playerCrouch;
+    PlayerAttack playerAttack;
 
     private InputSystem_Actions inputActions;
 
@@ -23,6 +25,8 @@ public class PlayerController : MonoBehaviour
         playerDash = GetComponent<PlayerDash>();
         playerJump = GetComponent<PlayerJump>();
         playerCrouch = GetComponent<PlayerCrouch>();
+
+        playerAttack = GetComponent<PlayerAttack>();
 
         inputActions = new InputSystem_Actions();
     }
@@ -34,6 +38,8 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.Jump.performed += HandleJump;
         inputActions.Player.Crouch.performed += HandleCrouch;
         inputActions.Player.Crouch.canceled += HandleCrouch;
+        inputActions.Player.AttackOne.performed += HandleAttackOne;
+        inputActions.Player.AttackTwo.performed += HandleAttackTwo;
     }
 
     void OnDisable()
@@ -43,6 +49,8 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.Jump.performed -= HandleJump;
         inputActions.Player.Crouch.performed -= HandleCrouch;
         inputActions.Player.Crouch.canceled -= HandleCrouch;
+        inputActions.Player.AttackOne.performed -= HandleAttackOne;
+        inputActions.Player.AttackTwo.performed -= HandleAttackTwo;
     }
 
     void Update()
@@ -90,6 +98,32 @@ public class PlayerController : MonoBehaviour
         playerMovement.Lock();
 
         yield return StartCoroutine(playerDash.Dash(body.transform.forward)); // Dash in the direction the player is facing
+
+        playerMovement.Unlock();
+    }
+
+    protected void HandleAttackOne(InputAction.CallbackContext context)
+    {
+        if (playerJump._Locked) return;
+
+        if (playerCrouch._Locked) return;
+
+        playerMovement.Lock(); // Prevent sliding while punching
+
+        playerAttack.PerformAttackOne();
+
+        playerMovement.Unlock();
+    }
+
+    protected void HandleAttackTwo(InputAction.CallbackContext context)
+    {
+        if (playerJump._Locked) return;
+
+        if (playerCrouch._Locked) return;
+
+        playerMovement.Lock(); // Prevent sliding while punching
+
+        playerAttack.PerformAttackTwo();
 
         playerMovement.Unlock();
     }

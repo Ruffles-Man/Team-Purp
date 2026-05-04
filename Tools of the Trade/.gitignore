@@ -54,6 +54,8 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+# J addition
+*.slnx
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -97,3 +99,6 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# Personal VS Configuration [additions to personal editor] (From Juillian)
+**/.vsconfig
