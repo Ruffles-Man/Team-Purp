@@ -5,7 +5,6 @@ using UnityEngine.Events;
 [RequireComponent(typeof(BoxCollider))]
 public class PlayerFootstep : MonoBehaviour
 {
-    [SerializeField] LayerMask groundMask;
     [SerializeField] UnityEvent onFootstep;
 
     PlayerSFX playerSFX;
@@ -19,7 +18,7 @@ public class PlayerFootstep : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == groundMask.value)
+        if (other.CompareTag(Tags.Ground))
         {
             playerSFX.PlayMovementSFX();
             onFootstep.Invoke();

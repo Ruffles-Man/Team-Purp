@@ -4,11 +4,10 @@ using UnityEngine.Events;
 public class EnemyBody : MonoBehaviour
 {
     [SerializeField] UnityEvent<HitInfo> onHit;
-    [SerializeField] LayerMask playerAttackMask;
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == playerAttackMask.value)
+        if (collision.gameObject.CompareTag(Tags.PlayerAttack))
         {
             HitInfo hitInfo = new()
             {
