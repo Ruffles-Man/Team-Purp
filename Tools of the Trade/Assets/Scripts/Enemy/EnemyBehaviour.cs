@@ -22,10 +22,28 @@ public class BasicEnemy : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    //Animation Data
+    Animator animator;
+    private readonly int speedHash = Animator.StringToHash("Speed");
+    protected float CurrentSpeed;
+    [SerializeField] private float MaxSpeed = 3.5f;
+    protected float SpeedLimit;
+    protected float WalkingSpeed;
+    
+    /// <summary>
+    /// Speed progress is a value between 0 and 1 representing how fast the player is moving for animation purposes.
+    /// </summary>
+    protected float SpeedProgress; // Calculate speed as a percentage of max speed
+
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+
+        animator = GetComponentInChildren<Animator>();
+        WalkingSpeed = MaxSpeed * 0.381549f;
+        SpeedLimit = WalkingSpeed;
+        agent.speed = SpeedLimit;
     }
 
     private void Update()
@@ -39,11 +57,24 @@ public class BasicEnemy : MonoBehaviour
         if (!playerInSightRange && !playerInAttackRange) Patroling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
+
+        //Patroling Animator Control
+        agent.speed = SpeedLimit;
+
+        CurrentSpeed = agent.velocity.magnitude;
+    
+        /// <summary>
+        /// Speed progress is a value between 0 and 1 representing how fast the player is moving for animation purposes.
+        /// </summary>
+        SpeedProgress = CurrentSpeed / MaxSpeed; // Calculate speed as a percentage of max speed
+        
+        animator.SetFloat(speedHash, SpeedProgress);
     }
 
     private void Patroling()
     {
         //Debug.Log("Patroling");
+        SpeedLimit = WalkingSpeed;
 
         if(!walkPointSet) SearchWalkPoint();
 
@@ -73,13 +104,14 @@ public class BasicEnemy : MonoBehaviour
     private void ChasePlayer()
     {
         //Debug.Log("Chasing Player!");
+        SpeedLimit = MaxSpeed;
         agent.SetDestination(player.position);
     }
 
     private void AttackPlayer()
     {
         //Halts the enemy
-        agent.SetDestination(transform.position);
+        //agent.SetDestination(transform.position);
 
         Vector3 flatTarget = new Vector3(player.position.x, transform.position.y, player.position.z);
 
