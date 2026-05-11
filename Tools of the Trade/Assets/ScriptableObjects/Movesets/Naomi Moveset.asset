@@ -19,6 +19,12 @@ MonoBehaviour:
   - clip: {fileID: 7400000, guid: 91b6cad2de3cfa8439c8ac3aa095d6ed, type: 2}
     hitboxes:
     - {fileID: 11400000, guid: 9fef2aa5dc27b564db5b904ade886c8c, type: 2}
-  - clip: {fileID: 7400000, guid: 91b6cad2de3cfa8439c8ac3aa095d6ed, type: 2}
+  - clip: {fileID: 7400000, guid: a43662ca4116f3f48a208a565904484d, type: 2}
     hitboxes:
     - {fileID: 11400000, guid: 710076bb62a26944f8a339e552282520, type: 2}
+  - clip: {fileID: 7400000, guid: c536bf95dee18994b999dcd290223223, type: 2}
+    hitboxes:
+    - {fileID: 11400000, guid: d4d83903ec8670149b16139d8692d5de, type: 2}
+  - clip: {fileID: 7400000, guid: 902f80c6322ffa44ebabf5c202015e5c, type: 2}
+    hitboxes:
+    - {fileID: 11400000, guid: 0393daf93977b764b89e288aac6c0173, type: 2}
