@@ -9,8 +9,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerAttack))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField, HideInInspector] private GameObject body;
-
     PlayerMovement playerMovement;
     PlayerDash playerDash;
     PlayerJump playerJump;
@@ -33,6 +31,8 @@ public class PlayerController : MonoBehaviour
 
     void OnEnable()
     {
+        GetComponentInChildren<Animator>().enabled = true;
+
         inputActions.Enable();
         inputActions.Player.Dash.performed += HandleDash;
         inputActions.Player.Jump.performed += HandleJump;
@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
     {
         playerMovement.Lock();
 
-        yield return StartCoroutine(playerDash.Dash(body.transform.forward)); // Dash in the direction the player is facing
+        yield return StartCoroutine(playerDash.Dash(transform.forward)); // Dash in the direction the player is facing
 
         playerMovement.Unlock();
     }
