@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: Naomi Moveset
   m_EditorClassIdentifier: Assembly-CSharp::MovesetData
   clipBindings:
-  - clip: {fileID: -7321412271681594418, guid: 7d893386752f9314b82f5d7c57c453f3, type: 3}
+  - clip: {fileID: 7400000, guid: c744b531c21f7ff4095c62978eefe6c6, type: 2}
     hitboxes:
     - {fileID: 11400000, guid: 89d514e65bba2d54b80f0ff362b6d3b5, type: 2}
+  - clip: {fileID: 7400000, guid: 91b6cad2de3cfa8439c8ac3aa095d6ed, type: 2}
+    hitboxes:
+    - {fileID: 11400000, guid: 9fef2aa5dc27b564db5b904ade886c8c, type: 2}
+  - clip: {fileID: 7400000, guid: 91b6cad2de3cfa8439c8ac3aa095d6ed, type: 2}
+    hitboxes:
+    - {fileID: 11400000, guid: 710076bb62a26944f8a339e552282520, type: 2}
