@@ -1,5 +1,6 @@
 using System.Diagnostics.Contracts;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 [CreateAssetMenu(fileName = "AttackData", menuName = "AttackData", order = 0)]
 public class AttackData : ScriptableObject 
@@ -12,13 +13,41 @@ public class AttackData : ScriptableObject
     public float sphereRadius;
 
     [Header("Hit Effects")]
-    public float damage;
+    public int damage;
     public Vector2 knockback;
     
     [Header("Frame Data")]
     public int startupFrames;
     public int activeFrames;
     public int recoveryFrames;
+
+    public bool HitboxActive(int frame)
+    {
+        return (frame >= startupFrames) && (frame <= startupFrames + activeFrames - 1);
+    }
+
+    public (Collider[] colliders, Vector3 worldOrigin) CastCheck(Transform origin)
+    {
+        Vector3 worldOrigin = origin.TransformPoint(hitboxOffset);
+
+        if (hitboxShape == HitboxShape.Box)
+        {
+            return (Physics.OverlapBox(
+                worldOrigin,
+                boxSize / 2f,
+                origin.rotation,
+                attackingLayers
+            ), worldOrigin);
+        }
+        else
+        {
+            return (Physics.OverlapSphere(
+                worldOrigin,
+                sphereRadius,
+                attackingLayers
+            ), worldOrigin);
+        }
+    }
 
     public void DrawGizmo(Transform origin) {
         Gizmos.color = new Color(1f, 0f, 0f, 0.35f);

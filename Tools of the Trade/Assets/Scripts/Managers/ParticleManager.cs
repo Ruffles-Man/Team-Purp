@@ -6,6 +6,7 @@ public class ParticleManager : MonoBehaviour
 
     public void SpawnHitEffect(HitInfo hitInfo)
     {
-        Instantiate(hitEffectPrefab, hitInfo.position, Quaternion.identity);
+        var hitVFX = Instantiate(hitEffectPrefab, hitInfo.position, Quaternion.identity);
+        hitVFX.transform.SetParent(this.transform, true);
     }
 }
