@@ -19,7 +19,7 @@ MonoBehaviour:
   hitboxShape: 0
   boxSize: {x: 0.43, y: 1.04, z: 0.85}
   sphereRadius: 0
-  damage: 0
+  damage: 10
   knockback: {x: 0, y: 0}
   startupFrames: 20
   activeFrames: 12

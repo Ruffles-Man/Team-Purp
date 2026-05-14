@@ -18,20 +18,31 @@ public class HitboxPreview : MonoBehaviour {
     }
 
     void OnDrawGizmos()
+{
+    if (moveset == null) return;
+
+    ClipHitboxBinding binding;
+#if UNITY_EDITOR
+    if (!Application.isPlaying)
     {
-        if (moveset == null) return;
+        // Use the editor-selected binding index directly
+        if (moveset.clipBindings == null || selectedBindingIndex >= moveset.clipBindings.Count) return;
+        binding = moveset.clipBindings[selectedBindingIndex];
+    }
+    else
+#endif
+    {
+        binding = AnimatorInfo.GetCurrentBinding(moveset, animator);
+    }
 
-        ClipHitboxBinding binding = AnimatorInfo.GetCurrentBinding(moveset, animator);
-        if (binding == null) return;
-
-        foreach (AttackData data in binding.hitboxes) 
+    if (binding == null) return;
+    foreach (AttackData data in binding.hitboxes) 
+    {
+        if (data == null) continue;
+        if (data.HitboxActive(currentFrame))
         {
-            if (data == null) continue;
-
-            if (data.HitboxActive(currentFrame))
-            {
-                data.DrawGizmo(transform);
-            }
+            data.DrawGizmo(transform);
         }
     }
+}
 }
