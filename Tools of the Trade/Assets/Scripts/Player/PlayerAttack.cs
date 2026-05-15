@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerAttack : LockableMonoBehavior
 {
+    public Transform hitboxOrigin;
+    public MovesetData moveset;
     CharacterController controller;
     Animator animator;
 
@@ -21,6 +24,53 @@ public class PlayerAttack : LockableMonoBehavior
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+    }
+
+    void Update()
+    {
+        CastHitboxes();
+    }
+
+    private ClipHitboxBinding lastBinding;     
+    private readonly HashSet<IHittable> hitThisAttack = new();
+    public void CastHitboxes()
+    {
+        var binding = AnimatorInfo.GetCurrentBinding(moveset, animator);
+
+        // flush if we've moved to a different attack
+        if (binding != lastBinding)
+        {
+            hitThisAttack.Clear();
+            lastBinding = binding;
+        }
+
+        if (binding == null) return;
+
+        int currentFrame = AnimatorInfo.GetCurrentFrameFromAnimator(animator);
+        
+        foreach (var hitbox in binding.hitboxes)
+        {
+            if (hitbox.HitboxActive(currentFrame))
+            {
+                ProcessHitbox(hitbox);
+            }
+        }
+    }
+
+    private void ProcessHitbox(AttackData hitbox)
+    {
+        var (colliders, worldOrigin) = hitbox.CastCheck(hitboxOrigin);
+        foreach (var collider in colliders)
+        {
+            if (collider.TryGetComponent(out IHittable hittable) && hitThisAttack.Add(hittable))
+            {
+                hittable.TakeHit(new HitInfo
+                {
+                    damage = hitbox.damage,
+                    position = collider.ClosestPoint(worldOrigin)  // closest point on target to hitbox center
+                });
+            }
+        }
     }
 
     /// <summary>

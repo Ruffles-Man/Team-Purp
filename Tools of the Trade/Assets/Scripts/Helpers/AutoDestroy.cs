@@ -6,6 +6,6 @@ public class AutoDestroy : MonoBehaviour
 
     void Start()
     {
-        Destroy(this, destroyTime);
+        Destroy(this.gameObject, destroyTime);
     }
 }

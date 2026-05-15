@@ -36,7 +36,6 @@ public class PlayerMovement : LockableMonoBehavior
     [SerializeField] private float sprintMultiplier = 1.5f;
     [SerializeField] private float timeToMaxSprint = 1f;
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField, HideInInspector] GameObject body;
     protected Vector2 SmoothMoveInput = Vector2.zero;
 
 
@@ -93,7 +92,6 @@ public class PlayerMovement : LockableMonoBehavior
        
         // movement
         Vector3 moveDirection = new(SmoothMoveInput.x, 0f, SmoothMoveInput.y);
-        moveDirection = transform.TransformDirection(moveDirection); // Convert local movement to world space
         Vector3 moveVector = CurrentSpeed * Time.deltaTime * moveDirection;
         controller.Move(moveVector);
 
@@ -101,7 +99,7 @@ public class PlayerMovement : LockableMonoBehavior
         animator.SetFloat(speedHash, SpeedProgress); // Update the animator with the movement speed
         if (moveDirection != Vector3.zero)
         {
-            body.transform.rotation = Quaternion.LookRotation(moveDirection.normalized); // Rotate the body to face the movement direction
+            transform.rotation = Quaternion.LookRotation(moveDirection.normalized); // Rotate the body to face the movement direction
         }
     }
 }

@@ -8,7 +8,6 @@ public class PlayerCrouch : LockableMonoBehavior
 {
     [SerializeField] private float crouchSpeed = 2.5f;
     [SerializeField] private float smoothTime = 0.25f;
-    [SerializeField, HideInInspector] GameObject body;
 
     protected Vector2 SmoothMoveInput = Vector2.zero;
 
@@ -45,7 +44,6 @@ public class PlayerCrouch : LockableMonoBehavior
        
         // movement
         Vector3 moveDirection = new(SmoothMoveInput.x, 0f, SmoothMoveInput.y);
-        moveDirection = transform.TransformDirection(moveDirection); // Convert local movement to world space
         Vector3 moveVector = Time.deltaTime * moveDirection;
         controller.Move(moveVector);
 
@@ -53,7 +51,7 @@ public class PlayerCrouch : LockableMonoBehavior
         animator.SetFloat(crouchSpeedHash, moveDirection.magnitude * crouchSpeed); // Update the animator with the crouch movement speed
         if (moveDirection != Vector3.zero)
         {
-            body.transform.rotation = Quaternion.LookRotation(moveDirection.normalized); // Rotate the body to face the movement direction
+            transform.rotation = Quaternion.LookRotation(moveDirection.normalized); // Rotate the body to face the movement direction
         }
     }
 
