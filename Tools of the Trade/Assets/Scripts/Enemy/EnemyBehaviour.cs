@@ -73,24 +73,30 @@ public class BasicEnemy : MonoBehaviour
 
     private void Patroling()
     {
-        //Debug.Log("Patroling");
         SpeedLimit = WalkingSpeed;
 
         if(!walkPointSet) SearchWalkPoint();
 
-        if(walkPointSet)
+        if (walkPointSet)
+        {
+            Debug.Log("Walkpoint Set");
             agent.SetDestination(walkPoint);
+        }
+
         
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
+        Debug.Log("distanceToWalkPoint = " + distanceToWalkPoint);
 
         //Walkpoint reached
-        if (distanceToWalkPoint.magnitude < 1f)
+        if (distanceToWalkPoint.magnitude <= 2f)
             walkPointSet = false;
     }
 
     private void SearchWalkPoint()
     {
         //Calculate random point in range
+
+        //Need to add essentially a minimum distance equal to the stopping distance
         float randomZ = Random.Range(-walkPointRange,walkPointRange);
         float randomX = Random.Range(-walkPointRange,walkPointRange);
 
