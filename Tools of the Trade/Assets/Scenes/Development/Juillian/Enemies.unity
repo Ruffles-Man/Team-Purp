@@ -596,11 +596,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!1 &839994339 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4f27bcba7929cb544911e7694a2bc64d, type: 3}
-  m_PrefabInstance: {fileID: 199341407}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &839994340 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4f27bcba7929cb544911e7694a2bc64d, type: 3}
@@ -820,6 +815,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6100360ab0a4b964b8d829ff583c0b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
+  hitboxOrigin: {fileID: 0}
+  moveset: {fileID: 0}
   comboStep: 0
 --- !u!114 &911586262
 MonoBehaviour:
@@ -849,7 +846,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCrouch
   crouchSpeed: 3.5
   smoothTime: 0.25
-  body: {fileID: 839994339}
 --- !u!114 &911586264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -898,7 +894,6 @@ MonoBehaviour:
   sprintMultiplier: 2.2
   timeToMaxSprint: 1
   moveSpeed: 3
-  body: {fileID: 839994339}
 --- !u!143 &911586267
 CharacterController:
   m_ObjectHideFlags: 0
@@ -936,7 +931,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55387aeb10f1df24b87d7fc6a5f1361f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  body: {fileID: 839994339}
 --- !u!4 &911586269
 Transform:
   m_ObjectHideFlags: 0
@@ -2407,7 +2401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BasicEnemy
   agent: {fileID: 1438129731}
   player: {fileID: 911586269}
-  whatisGround:
+  whatIsGround:
     serializedVersion: 2
     m_Bits: 64
   whatIsPlayer:

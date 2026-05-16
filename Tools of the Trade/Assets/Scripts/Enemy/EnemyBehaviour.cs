@@ -7,12 +7,12 @@ public class BasicEnemy : MonoBehaviour
     public Transform player;
     // A layer mask is an int under the hood that for which each bit refers to a layer in a Unity scene (on ay given object look below the name and to the right of the tag to find its dropdown)
     // Layers themselves are groupings of objects relating to physics and render calculations
-    public LayerMask whatisGround, whatIsPlayer;
+    public LayerMask whatIsGround, whatIsPlayer;
 
     //Patroling
     public Vector3 walkPoint;
     bool walkPointSet;
-    public float walkPointRange;
+    public float walkPointRange, minWalkPointRange;
 
     //Attacking
     public float timeBetweenAttacks;
@@ -29,6 +29,8 @@ public class BasicEnemy : MonoBehaviour
     [SerializeField] private float MaxSpeed = 3.5f;
     protected float SpeedLimit;
     protected float WalkingSpeed;
+
+    protected bool wasChasing = false;
     
     /// <summary>
     /// Speed progress is a value between 0 and 1 representing how fast the player is moving for animation purposes.
@@ -50,9 +52,17 @@ public class BasicEnemy : MonoBehaviour
     {
         //Check for sight and attack range
 
-        //Physics.CheckSphere() checks in a spherical area with its center at the first parameter, its radius the second and the third parameter is a LayerMask that filters for valid objects. Returns a boolean 
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        if (player != null)
+        {
+            // Calculate clean flat distance (ignoring height differences)
+            Vector3 displacement = player.position - transform.position;
+            displacement.y = 0; 
+            float distanceToPlayer = displacement.magnitude;
+
+            // Directly assign your states based on the raw math!
+            playerInSightRange = distanceToPlayer <= sightRange;
+            playerInAttackRange = distanceToPlayer <= attackRange;
+        }
 
         if (!playerInSightRange && !playerInAttackRange) Patroling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
@@ -94,22 +104,27 @@ public class BasicEnemy : MonoBehaviour
 
     private void SearchWalkPoint()
     {
-        //Calculate random point in range
+        // 1. Get a completely random angle in radians (0 to 2 * PI)
+        float randomAngle = Random.Range(0f, Mathf.PI * 2f);
 
-        //Need to add essentially a minimum distance equal to the stopping distance
-        float randomZ = Random.Range(-walkPointRange,walkPointRange);
-        float randomX = Random.Range(-walkPointRange,walkPointRange);
+        // 2. Get a random distance strictly between your Min and Max ranges
+        float randomDistance = Random.Range(minWalkPointRange, walkPointRange);
+
+        // 3. Convert Polar Coordinates (Angle & Distance) to Cartesian Coordinates (X & Z)
+        float randomX = Mathf.Cos(randomAngle) * randomDistance;
+        float randomZ = Mathf.Sin(randomAngle) * randomDistance;
 
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
-        // Physics.Raycast(walkPoint, -transform.up, 2f, whatisGround) Casts a ray from walkPoint in the direction -transform.up (which is straight down) for the length of 2 units (meters) checking if it hits anything considered the ground (things that pass the whatIsGround LayerMask)
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, whatisGround))
+        // Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround) Casts a ray from walkPoint in the direction -transform.up (which is straight down) for the length of 2 units (meters) checking if it hits anything considered the ground (things that pass the whatIsGround LayerMask)
+        if (Physics.Raycast(walkPoint, -transform.up, 3f, whatIsGround))
             walkPointSet = true;
     }
 
     private void ChasePlayer()
     {
         //Debug.Log("Chasing Player!");
+        agent.isStopped = false;
         SpeedLimit = MaxSpeed;
         agent.SetDestination(player.position);
     }
@@ -118,6 +133,7 @@ public class BasicEnemy : MonoBehaviour
     {
         //Halts the enemy
         //agent.SetDestination(transform.position);
+        agent.isStopped = true;
 
         Vector3 flatTarget = new Vector3(player.position.x, transform.position.y, player.position.z);
 
@@ -127,7 +143,7 @@ public class BasicEnemy : MonoBehaviour
         {
             // Attack Code here:
             Debug.Log("Enemy Attacked!");
-
+            //animator.SetTrigger("InRange");
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
