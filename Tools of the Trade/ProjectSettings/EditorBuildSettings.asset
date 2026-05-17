@@ -6,7 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/Development/Thomas/Menu.unity
+    guid: c145aa20e1458694dbe51075560fa065
+  - enabled: 1
+    path: Assets/Scenes/Development/Thomas/CharacterSelection.unity
+    guid: 89f8dbb709c31c648b1b4eaa4567832e
+  - enabled: 1
+    path: Assets/Scenes/Development/Thomas/Cutscene.unity
+    guid: d14a1fd8b868c914a8ed2bb5663c83dd
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
