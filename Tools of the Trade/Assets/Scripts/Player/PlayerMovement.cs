@@ -58,17 +58,29 @@ public class PlayerMovement : LockableMonoBehavior
         playerSFX = GetComponent<PlayerSFX>();
     }
 
+    public void SprintBegin()
+    {
+        playerVFX.RequestTrails();
+    }
+
+    public void SprintEnd()
+    {
+        playerVFX.ReleaseTrails();
+    }
+
     public void PerformSprint(InputSystem_Actions actions)
     {
         // set sprint time based on input
         if (actions.Player.Sprint.WasPressedThisFrame())
         {
             elapsedSprintTime = 0f;
+            playerVFX.RequestTrails();
         }
         if (actions.Player.Sprint.WasReleasedThisFrame())
         {
             // capture the sprint time at the moment of release for smooth deceleration
             elapsedSprintTime = Mathf.Clamp(elapsedSprintTime, 0f, timeToMaxSprint);
+            playerVFX.ReleaseTrails();
         }
 
         sprinting = actions.Player.Sprint.IsPressed();

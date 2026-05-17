@@ -1,14 +1,16 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
 [RequireComponent(typeof(CharacterController))]
+
+[RequireComponent(typeof(PlayerVFX))]
 public class PlayerAttack : LockableMonoBehavior
 {
     public Transform hitboxOrigin;
     public MovesetData moveset;
     CharacterController controller;
     Animator animator;
+    PlayerVFX playerVFX;
 
     private readonly int jabHash = Animator.StringToHash("UAL_Armature_Punch_Jab");
     private readonly int crossHash = Animator.StringToHash("UAL_Armature_Punch_Cross");
@@ -24,6 +26,7 @@ public class PlayerAttack : LockableMonoBehavior
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+        playerVFX = GetComponent<PlayerVFX>();
     }
 
     void Update()
@@ -41,6 +44,11 @@ public class PlayerAttack : LockableMonoBehavior
         if (binding != lastBinding)
         {
             hitThisAttack.Clear();
+
+            // Release when leaving an attack, request when entering one
+            if (lastBinding != null) playerVFX.ReleaseTrails();
+            if (binding != null) playerVFX.RequestTrails();
+
             lastBinding = binding;
         }
 
