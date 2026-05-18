@@ -40,6 +40,7 @@ public class PlayerDash : LockableMonoBehavior
         float elapsedTime = 0f;
 
         // Play dash animation
+        playerVFX.RequestTrails();
         animator.SetBool(dashHash, true);
         playerSFX.PlayDashSFX();
 
@@ -51,5 +52,6 @@ public class PlayerDash : LockableMonoBehavior
         }
 
         animator.SetBool(dashHash, false); // Stop dash animation
+        playerVFX.ReleaseTrails();
     }
 }

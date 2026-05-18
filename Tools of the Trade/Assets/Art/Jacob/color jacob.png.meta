@@ -1,13 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-<<<<<<< HEAD
-guid: c9b74bbb5fba9c643aa6d7df77e95568
-=======
-guid: e0216f99998def442965b9b1e68a2bbf
->>>>>>> b3c9f9aabbddc2f39dbb5aa8ba910aca74719f78
-=======
-guid: e0216f99998def442965b9b1e68a2bbf
->>>>>>> startmenu
+guid: cab98949d54924645a28c184ff00c94a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -101,25 +93,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-<<<<<<< HEAD
-<<<<<<< HEAD
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-=======
->>>>>>> b3c9f9aabbddc2f39dbb5aa8ba910aca74719f78
-=======
->>>>>>> startmenu
   spriteSheet:
     serializedVersion: 2
     sprites: []
