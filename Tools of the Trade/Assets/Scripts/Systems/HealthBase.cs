@@ -17,6 +17,8 @@ public abstract class HealthBase : MonoBehaviour, IHealth
 
     protected int currentHP;
 
+    public HitType attackType;
+
     void Awake()
     {
         // TODO: want to load this from a file so health is consistent across scenes
@@ -52,5 +54,6 @@ public abstract class HealthBase : MonoBehaviour, IHealth
     public void TakeHit(HitInfo hitInfo)
     {
         Damage(hitInfo.damage);
+        attackType = hitInfo.attackType;
     }
 }
