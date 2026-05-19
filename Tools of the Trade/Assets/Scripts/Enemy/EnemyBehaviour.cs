@@ -37,6 +37,7 @@ public class BasicEnemy : MonoBehaviour
     /// </summary>
     protected float SpeedProgress; // Calculate speed as a percentage of max speed
 
+
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
