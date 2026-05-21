@@ -11,7 +11,7 @@ public class ChildAnimatorBridge : MonoBehaviour
 
     public void onDeath()
     {
-        animator.SetTrigger(dieHash);
+        animator.SetBool(dieHash, true);
     }
     public void DisableParentObject()
     {
