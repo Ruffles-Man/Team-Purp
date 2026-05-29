@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.AI;
 public class BasicEnemy : MonoBehaviour
@@ -12,6 +13,7 @@ public class BasicEnemy : MonoBehaviour
     //Patroling
     public Vector3 walkPoint;
     bool walkPointSet;
+    bool isAttacking = false;
     public float walkPointRange, minWalkPointRange;
 
     //Attacking
@@ -25,6 +27,9 @@ public class BasicEnemy : MonoBehaviour
     //Animation Data
     Animator animator;
     private readonly int speedHash = Animator.StringToHash("Speed");
+    private readonly int punchHash = Animator.StringToHash("PunchPath");
+    private readonly int kickHash = Animator.StringToHash("KickPath");
+    private readonly int rangeHash = Animator.StringToHash("InRange");
     protected float CurrentSpeed;
     [SerializeField] private float MaxSpeed = 3.5f;
     protected float SpeedLimit;
@@ -65,8 +70,10 @@ public class BasicEnemy : MonoBehaviour
             playerInAttackRange = distanceToPlayer <= attackRange;
         }
 
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+        if(!playerInAttackRange) animator.SetBool(rangeHash, false);
+
+        if (!playerInSightRange && !playerInAttackRange && !IsAttacking()) Patroling();
+        if (playerInSightRange && !playerInAttackRange && !IsAttacking()) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
 
         //Patroling Animator Control
@@ -82,6 +89,17 @@ public class BasicEnemy : MonoBehaviour
         animator.SetFloat(speedHash, SpeedProgress);
     }
 
+    private bool IsAttacking()
+    {
+        if (animator == null) return false;
+
+            // 1. Get info about the state currently playing on the base layer (0)
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+            // 2. Check if that active state has your tag
+            return stateInfo.IsTag("Attack");
+    } 
+
     private void Patroling()
     {
         SpeedLimit = WalkingSpeed;
@@ -90,13 +108,13 @@ public class BasicEnemy : MonoBehaviour
 
         if (walkPointSet)
         {
-            Debug.Log("Walkpoint Set");
+            //Debug.Log("Walkpoint Set");
             agent.SetDestination(walkPoint);
         }
 
         
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
-        Debug.Log("distanceToWalkPoint = " + distanceToWalkPoint);
+        //Debug.Log("distanceToWalkPoint = " + distanceToWalkPoint);
 
         //Walkpoint reached
         if (distanceToWalkPoint.magnitude <= 2f)
@@ -136,18 +154,43 @@ public class BasicEnemy : MonoBehaviour
         //agent.SetDestination(transform.position);
         agent.isStopped = true;
 
+        animator.SetBool(rangeHash, true);
+
         Vector3 flatTarget = new Vector3(player.position.x, transform.position.y, player.position.z);
 
         transform.LookAt(flatTarget);
 
-        if(!alreadyAttacked)
+
+        // 2. Pass the decision to the animator BEFORE turning on the attack trigger
+        if (!IsAttacking())
         {
-            // Attack Code here:
-            Debug.Log("Enemy Attacked!");
-            //animator.SetTrigger("InRange");
-            alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+            int randomNum = UnityEngine.Random.Range(0, 2);
+            
+            animator.SetInteger("AttackString", randomNum);
+             Debug.Log("attacking with sting: " + randomNum);
+            animator.SetTrigger("Attack");
         }
+        
+
+        // if (UnityEngine.Random.value < 0.5f && !IsAttacking())
+        // {
+        //     Debug.Log("attacking with punches");
+        //     animator.SetTrigger(punchHash);
+        // }
+        // else
+        // {
+        //     Debug.Log("attacking with kicks");
+        //     animator.SetTrigger(kickHash);
+        //}
+
+        // if(!alreadyAttacked)
+        // {
+        //     // Attack Code here:
+        //     Debug.Log("Enemy Attacked!");
+        //     //animator.SetTrigger("InRange");
+        //     alreadyAttacked = true;
+        //     Invoke(nameof(ResetAttack), timeBetweenAttacks);
+        // }
     }
 
     private void ResetAttack()
