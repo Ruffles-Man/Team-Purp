@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.AI;
-public class BasicEnemy : MonoBehaviour
+public class EnemyBehaviour: MonoBehaviour
 {
     // From the following tutorial: https://www.youtube.com/watch?v=UjkSFoLxesw
     public NavMeshAgent agent;
@@ -13,12 +13,10 @@ public class BasicEnemy : MonoBehaviour
     //Patroling
     public Vector3 walkPoint;
     bool walkPointSet;
-    bool isAttacking = false;
     public float walkPointRange, minWalkPointRange;
 
     //Attacking
     public float timeBetweenAttacks;
-    bool alreadyAttacked;
 
     //States
     public float sightRange, attackRange;
@@ -181,32 +179,6 @@ public class BasicEnemy : MonoBehaviour
              Debug.Log("attacking with sting: " + randomNum);
             animator.SetTrigger("Attack");
         }
-        
-
-        // if (UnityEngine.Random.value < 0.5f && !IsAttacking())
-        // {
-        //     Debug.Log("attacking with punches");
-        //     animator.SetTrigger(punchHash);
-        // }
-        // else
-        // {
-        //     Debug.Log("attacking with kicks");
-        //     animator.SetTrigger(kickHash);
-        //}
-
-        // if(!alreadyAttacked)
-        // {
-        //     // Attack Code here:
-        //     Debug.Log("Enemy Attacked!");
-        //     //animator.SetTrigger("InRange");
-        //     alreadyAttacked = true;
-        //     Invoke(nameof(ResetAttack), timeBetweenAttacks);
-        // }
-    }
-
-    private void ResetAttack()
-    {
-        alreadyAttacked = false;
     }
 
     private void OnDrawGizmosSelected()
