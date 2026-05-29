@@ -72,8 +72,8 @@ public class BasicEnemy : MonoBehaviour
 
         if(!playerInAttackRange) animator.SetBool(rangeHash, false);
 
-        if (!playerInSightRange && !playerInAttackRange && !IsAttacking()) Patroling();
-        if (playerInSightRange && !playerInAttackRange && !IsAttacking()) ChasePlayer();
+        if (!playerInSightRange && !playerInAttackRange && !IsAttacking() && !IsReacting()) Patroling();
+        if (playerInSightRange && !playerInAttackRange && !IsAttacking() && !IsReacting()) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
 
         //Patroling Animator Control
@@ -98,6 +98,17 @@ public class BasicEnemy : MonoBehaviour
 
             // 2. Check if that active state has your tag
             return stateInfo.IsTag("Attack");
+    }
+
+    private bool IsReacting()
+    {
+        if (animator == null) return false;
+
+            // 1. Get info about the state currently playing on the base layer (0)
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+            // 2. Check if that active state has your tag
+            return stateInfo.IsTag("Reaction");
     } 
 
     private void Patroling()
