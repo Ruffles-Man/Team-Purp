@@ -3,8 +3,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerVFX))]
-
 [RequireComponent(typeof(PlayerSFX))]
+[RequireComponent(typeof(PlayerLockOn))]
+
+[RequireComponent(typeof(PlayerCrouch))]
 public class PlayerMovement : LockableMonoBehavior
 {
     /// <summary>
@@ -41,6 +43,7 @@ public class PlayerMovement : LockableMonoBehavior
 
     private PlayerSFX playerSFX;
     private PlayerVFX playerVFX;
+    private PlayerLockOn playerLockOn;
     private CharacterController controller;
     private Animator animator;
     private Vector2 velocity = Vector2.zero;
@@ -56,6 +59,7 @@ public class PlayerMovement : LockableMonoBehavior
         animator = GetComponentInChildren<Animator>();
         playerVFX = GetComponent<PlayerVFX>();
         playerSFX = GetComponent<PlayerSFX>();
+        playerLockOn = GetComponent<PlayerLockOn>();
     }
 
     public void SprintBegin()
@@ -100,16 +104,22 @@ public class PlayerMovement : LockableMonoBehavior
     {
         // input processing
         Vector2 moveInput = actions.Player.Move.ReadValue<Vector2>();
-        SmoothMoveInput = Vector2.SmoothDamp(SmoothMoveInput, moveInput, ref velocity, smoothTime); 
-       
-        // movement
+        SmoothMoveInput = Vector2.SmoothDamp(SmoothMoveInput, moveInput, ref velocity, smoothTime);
         Vector3 moveDirection = new(SmoothMoveInput.x, 0f, SmoothMoveInput.y);
+
+        // movement
         Vector3 moveVector = CurrentSpeed * Time.deltaTime * moveDirection;
         controller.Move(moveVector);
 
         // animation & visuals
         animator.SetFloat(speedHash, SpeedProgress); // Update the animator with the movement speed
-        if (moveDirection != Vector3.zero)
+
+        // rotation (locked vs unlocked)
+        if (playerLockOn.lockedOnTarget != null)
+        {
+            transform.LookAt(playerLockOn.lockedOnTarget.transform.position); // Ensure the player is always facing the locked-on target
+        }
+        else if (moveDirection.sqrMagnitude > 0.01f) // only rotate if there's significant movement input
         {
             transform.rotation = Quaternion.LookRotation(moveDirection.normalized); // Rotate the body to face the movement direction
         }

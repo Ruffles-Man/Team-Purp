@@ -1,12 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerDash))]
 [RequireComponent(typeof(PlayerJump))]
 [RequireComponent(typeof(PlayerCrouch))]
 [RequireComponent(typeof(PlayerAttack))]
+
+[RequireComponent(typeof(PlayerLockOn))]
 public class PlayerController : MonoBehaviour
 {
     PlayerMovement playerMovement;
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour
     PlayerJump playerJump;
     PlayerCrouch playerCrouch;
     PlayerAttack playerAttack;
+    PlayerLockOn playerLockOn;
 
     private InputSystem_Actions inputActions;
 
@@ -23,6 +25,7 @@ public class PlayerController : MonoBehaviour
         playerDash = GetComponent<PlayerDash>();
         playerJump = GetComponent<PlayerJump>();
         playerCrouch = GetComponent<PlayerCrouch>();
+        playerLockOn = GetComponent<PlayerLockOn>();
 
         playerAttack = GetComponent<PlayerAttack>();
 
@@ -40,6 +43,7 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.Crouch.canceled += HandleCrouch;
         inputActions.Player.AttackOne.performed += HandleAttackOne;
         inputActions.Player.AttackTwo.performed += HandleAttackTwo;
+        inputActions.Player.LockOn.performed += HandleLockOn;
     }
 
     void OnDisable()
@@ -51,6 +55,7 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.Crouch.canceled -= HandleCrouch;
         inputActions.Player.AttackOne.performed -= HandleAttackOne;
         inputActions.Player.AttackTwo.performed -= HandleAttackTwo;
+        inputActions.Player.LockOn.performed -= HandleLockOn;
     }
 
     void Update()
@@ -59,6 +64,11 @@ public class PlayerController : MonoBehaviour
         if (!playerMovement._Locked) playerMovement.PerformSprint(inputActions);
         if (!playerMovement._Locked) playerMovement.PerformMove(inputActions);
         if (!playerCrouch._Locked) playerCrouch.PerformCrouch(inputActions);
+    }
+
+    protected void HandleLockOn(InputAction.CallbackContext context)
+    {
+        playerLockOn.PerformLockOn(context);
     }
 
     protected void HandleJump(InputAction.CallbackContext context)
@@ -70,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
     protected void HandleDash(InputAction.CallbackContext context)
     {
-        if (playerDash._Locked) return; 
+        if (playerDash._Locked) return;
 
         StartCoroutine(DashCoroutine(context));
     }
@@ -104,28 +114,30 @@ public class PlayerController : MonoBehaviour
 
     protected void HandleAttackOne(InputAction.CallbackContext context)
     {
-        if (playerJump._Locked) return;
-
-        if (playerCrouch._Locked) return;
-
-        playerMovement.Lock(); // Prevent sliding while punching
+        playerMovement.Lock();
+        playerCrouch.Lock();
 
         playerAttack.PerformAttackOne();
 
-        playerMovement.Unlock();
+        playerAttack.OnAttackComplete += UnfreezePlayer;
     }
 
     protected void HandleAttackTwo(InputAction.CallbackContext context)
     {
-        if (playerJump._Locked) return;
-
-        if (playerCrouch._Locked) return;
-
-        playerMovement.Lock(); // Prevent sliding while punching
-
+        playerMovement.Lock();
+        playerCrouch.Lock();
         playerAttack.PerformAttackTwo();
 
-        playerMovement.Unlock();
+        playerAttack.OnAttackComplete += UnfreezePlayer;
     }
 
+    // The clean callback method
+    private void UnfreezePlayer()
+    {
+        playerCrouch.Unlock();
+        playerMovement.Unlock();
+
+        // TODO: Safely unsubscribe from the event completely
+        playerAttack.OnAttackComplete -= UnfreezePlayer;
+    }
 }
