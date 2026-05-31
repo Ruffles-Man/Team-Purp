@@ -9,8 +9,8 @@ public abstract class HealthBase : MonoBehaviour, IHealth
     /// <summary>
     /// Event that is called whenever the HP changes passing the old, new, and max value.
     /// </summary>
-    [SerializeField] UnityEvent<int, int, int> onHealthChanged;
-    [SerializeField] UnityEvent healthZero;
+    public UnityEvent<int, int, int> onHealthChanged;
+    public UnityEvent healthZero;
 
     public int MaxHP => maxHP;
     public int CurrentHP => currentHP;
@@ -40,7 +40,7 @@ public abstract class HealthBase : MonoBehaviour, IHealth
         if (currentHP <= 0)
         {
             Debug.Log("Damage");
-            healthZero.Invoke();   
+            healthZero.Invoke();
         }
     }
 
@@ -56,6 +56,6 @@ public abstract class HealthBase : MonoBehaviour, IHealth
     {
         attackType = hitInfo.attackType;
         Damage(hitInfo.damage);
-        
+
     }
 }

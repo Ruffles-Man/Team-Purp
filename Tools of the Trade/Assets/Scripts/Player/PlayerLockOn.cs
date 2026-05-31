@@ -7,7 +7,7 @@ public class PlayerLockOn : LockableMonoBehavior
 {
     [SerializeField] private float lockOnRange = 10f;
     [SerializeField] private float lockOnAngle = 45f;
-    
+
     public GameObject lockedOnTarget = null;
     private UnityEngine.Events.UnityAction currentDeathListener = null; // stored so we can remove it later
 
@@ -29,7 +29,7 @@ public class PlayerLockOn : LockableMonoBehavior
         // remove the death listener from the current target before releasing
         if (lockedOnTarget != null && currentDeathListener != null)
         {
-            lockedOnTarget.GetComponent<EnemyHealth>().onDeath.RemoveListener(currentDeathListener);
+            lockedOnTarget.GetComponent<EnemyHealth>().healthZero.RemoveListener(currentDeathListener);
         }
         currentDeathListener = null;
         lockedOnTarget = null;
@@ -53,7 +53,8 @@ public class PlayerLockOn : LockableMonoBehavior
             }
             List<LockOnData> potentialTargets = new();
             // find all enemies in the scene and lock onto closest one within range and angle
-            FindObjectsByType<EnemyHealth>().ToList().ForEach(enemy => {
+            FindObjectsByType<EnemyHealth>().ToList().ForEach(enemy =>
+            {
                 Vector3 toEnemy = enemy.transform.position - transform.position;
                 float distanceToEnemy = toEnemy.magnitude;
                 float angleToEnemy = Vector3.Angle(transform.forward, toEnemy);
@@ -71,7 +72,7 @@ public class PlayerLockOn : LockableMonoBehavior
 
                 // store listener reference so it can be removed later
                 currentDeathListener = () => ClearLockOn();
-                lockedOnTarget.GetComponent<EnemyHealth>().onDeath.AddListener(currentDeathListener); // Clear lock-on if target dies
+                lockedOnTarget.GetComponent<EnemyHealth>().healthZero.AddListener(currentDeathListener); // Clear lock-on if target dies
             }
         }
     }
