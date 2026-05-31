@@ -248,7 +248,7 @@ RectTransform:
   m_Father: {fileID: 1361785881}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -743,6 +743,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8739489523344639021, guid: 5eb6897d87635384189ff47434640f15, type: 3}
   m_PrefabInstance: {fileID: 529971293}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &221978242 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7dacac94955142141a6863fbc407e67f, type: 3}
+  m_PrefabInstance: {fileID: 1142706260}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &221978243 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7dacac94955142141a6863fbc407e67f, type: 3}
@@ -753,6 +758,18 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 7dacac94955142141a6863fbc407e67f, type: 3}
   m_PrefabInstance: {fileID: 1142706260}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &221978245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221978242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7555303462c528341b0ab7e5d23b0d9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChildAnimatorBridge
 --- !u!4 &244834163 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2381233103486925861, guid: 4f27bcba7929cb544911e7694a2bc64d, type: 3}
@@ -889,7 +906,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &296829000
 Transform:
   m_ObjectHideFlags: 0
@@ -941,7 +958,7 @@ MonoBehaviour:
   healthZero:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 221978245}
         m_TargetAssemblyTypeName: ChildAnimatorBridge, Assembly-CSharp
         m_MethodName: onDeath
         m_Mode: 1
@@ -3866,7 +3883,7 @@ MonoBehaviour:
   healthZero:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1884067102}
         m_TargetAssemblyTypeName: ChildAnimatorBridge, Assembly-CSharp
         m_MethodName: onDeath
         m_Mode: 1
@@ -5417,7 +5434,7 @@ RectTransform:
   m_Father: {fileID: 2127467087}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5688,7 +5705,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7dacac94955142141a6863fbc407e67f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 221978245}
   m_SourcePrefab: {fileID: 100100000, guid: 7dacac94955142141a6863fbc407e67f, type: 3}
 --- !u!1 &1184330128
 GameObject:
@@ -6231,7 +6251,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1470377782
 Transform:
   m_ObjectHideFlags: 0
@@ -7565,6 +7585,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1870217498}
   m_CullTransparentMesh: 1
+--- !u!1 &1884067099 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c043afd89c6199645b7d4eced3568bca, type: 3}
+  m_PrefabInstance: {fileID: 2130576818}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &1884067100 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: c043afd89c6199645b7d4eced3568bca, type: 3}
@@ -7575,6 +7600,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c043afd89c6199645b7d4eced3568bca, type: 3}
   m_PrefabInstance: {fileID: 2130576818}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1884067102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1884067099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7555303462c528341b0ab7e5d23b0d9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChildAnimatorBridge
 --- !u!1 &1884216543
 GameObject:
   m_ObjectHideFlags: 0
@@ -8814,7 +8851,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c043afd89c6199645b7d4eced3568bca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1884067102}
   m_SourcePrefab: {fileID: 100100000, guid: c043afd89c6199645b7d4eced3568bca, type: 3}
 --- !u!1 &2132635848
 GameObject:
