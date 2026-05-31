@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(PlayerVFX))]
+//[RequireComponent(typeof(PlayerVFX))]
 public class EnemyHitDetection : LockableMonoBehavior
 {
     public Transform hitboxOrigin;
