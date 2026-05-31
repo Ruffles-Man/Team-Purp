@@ -141,6 +141,7 @@ public class PlayerAttack : LockableMonoBehavior
             {
                 hittable.TakeHit(new HitInfo
                 {
+                    attackType = hitbox.attackType,
                     damage = hitbox.damage,
                     position = collider.ClosestPoint(worldOrigin)
                 });

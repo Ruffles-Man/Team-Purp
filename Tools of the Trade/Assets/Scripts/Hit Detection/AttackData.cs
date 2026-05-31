@@ -1,5 +1,6 @@
 using System.Diagnostics.Contracts;
 using UnityEngine;
+using UnityEngine.SearchService;
 using UnityEngine.Timeline;
 
 [CreateAssetMenu(fileName = "AttackData", menuName = "AttackData", order = 0)]
@@ -13,6 +14,7 @@ public class AttackData : ScriptableObject
     public float sphereRadius;
 
     [Header("Hit Effects")]
+    public HitType attackType;
     public int damage;
     public Vector2 knockback;
     
@@ -69,4 +71,12 @@ public class AttackData : ScriptableObject
         else
             Gizmos.DrawWireSphere(Vector3.zero, sphereRadius);
     }
+}
+
+public enum HitType : byte
+{
+    High,
+    Mid,
+    UpLaunch,
+    BackLaunch
 }

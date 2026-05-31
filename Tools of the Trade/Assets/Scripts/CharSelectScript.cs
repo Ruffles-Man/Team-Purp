@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class CharSelectScript : MonoBehaviour
 {
-    public GameObject[] characters;
-
     public void BacktoMenu()
     {
         SceneManager.LoadScene(0);
@@ -14,15 +12,15 @@ public class CharSelectScript : MonoBehaviour
 
     public void SelectJacob()
     {
-        characters[0].SetActive(true);
-        characters[1].SetActive(false);
+        DataManager.Instance.characters[0] = true;
+        DataManager.Instance.characters[1] = false;
         SceneManager.LoadScene(2);
     }
 
     public void SelectNaomi()
     {
-        characters[0].SetActive(false);
-        characters[1].SetActive(true);
+        DataManager.Instance.characters[0] = false;
+        DataManager.Instance.characters[1] = true;
         SceneManager.LoadScene(2);
     }
 }
