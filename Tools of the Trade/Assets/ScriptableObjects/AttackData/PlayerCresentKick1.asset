@@ -19,6 +19,7 @@ MonoBehaviour:
   hitboxShape: 0
   boxSize: {x: 1, y: 1, z: 1}
   sphereRadius: 0
+  attackType: 3
   damage: 10
   knockback: {x: 0, y: 0}
   startupFrames: 37
