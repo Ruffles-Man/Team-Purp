@@ -695,6 +695,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   animator: {fileID: 5412911062723098381}
+  particleManager: {fileID: 0}
 --- !u!1 &9069996375666381098
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,7 +745,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 9069996375666381098}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.2
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -781,8 +782,8 @@ MonoBehaviour:
   walkPointRange: 6
   minWalkPointRange: 2
   timeBetweenAttacks: 5
-  sightRange: 7
-  attackRange: 3
+  sightRange: 1000
+  attackRange: 0.8
   playerInSightRange: 0
   playerInAttackRange: 0
   MaxSpeed: 3.5

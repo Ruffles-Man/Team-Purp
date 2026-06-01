@@ -20,7 +20,7 @@ public class EnemyHittable : MonoBehaviour, IHittable
         // If the inspector slot is empty (which it will be on a Prefab), find it dynamically!
         if (particleManager == null)
         {
-            GameObject managerObj = GameObject.Find("ParticleManager");
+            GameObject managerObj = GameObject.Find("Particle Manager");
             if (managerObj != null)
             {
                 particleManager = managerObj.GetComponent<ParticleManager>();
