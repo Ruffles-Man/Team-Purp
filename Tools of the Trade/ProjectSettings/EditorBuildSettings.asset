@@ -17,5 +17,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Development/PlayerBase/PlayerActionBase.unity
     guid: eb86a68bf3b042d44a5fa6477b34f8fa
+  - enabled: 1
+    path: Assets/Scenes/Final Game/Tutorial.unity
+    guid: b9402e275d78ed64bacab37238d2a437
+  - enabled: 1
+    path: Assets/Scenes/Final Game/LVL1.unity
+    guid: 6c898a2565b9e2f428a8fa1757cec986
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
