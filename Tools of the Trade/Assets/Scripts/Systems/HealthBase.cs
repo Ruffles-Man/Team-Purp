@@ -56,6 +56,5 @@ public abstract class HealthBase : MonoBehaviour, IHealth
     {
         attackType = hitInfo.attackType;
         Damage(hitInfo.damage);
-
     }
 }

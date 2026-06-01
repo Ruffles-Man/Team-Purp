@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -15,7 +16,13 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject timmyPunchPrefab;
     [SerializeField] private GameObject timmyBothPrefab;
 
-    public int TotalEnemies = 0;
+    [Header("Stats")]
+    public int TotalEnemies => timmyKickCount + timmyPunchCount + timmyBothCount;
+    public int EnemiesAlive = 0;
+    public UnityEvent onAllEnemiesDefeated;
+    public bool AllEnemiesDead => EnemiesAlive == 0 && enemiesSpawned >= TotalEnemies;
+
+    int enemiesSpawned = 0;
     float elapsedTime = 0f;
     
     void Start()
@@ -54,7 +61,6 @@ public class EnemySpawner : MonoBehaviour
 
         SpawnAtRandomPoint(spawnPool[0]);
         spawnPool.RemoveAt(0);
-        TotalEnemies++;
     }
 
     private void Update()
@@ -73,5 +79,18 @@ public class EnemySpawner : MonoBehaviour
         int randomIndex = UnityEngine.Random.Range(0, spawnPoints.Length);
         Transform spawnPoint = spawnPoints[randomIndex];
         Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation).GetComponent<EnemyBehaviour>();
+        enemiesSpawned++;
+        EnemiesAlive++;
+    }
+
+    public bool DecreaseEnemyCount()
+    {
+        EnemiesAlive--;
+        if (AllEnemiesDead)
+        {
+            Debug.Log("All enemies defeated!");
+            onAllEnemiesDefeated.Invoke();
+        }
+        return AllEnemiesDead;
     }
 }

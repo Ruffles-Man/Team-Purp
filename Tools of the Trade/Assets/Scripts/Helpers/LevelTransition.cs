@@ -17,4 +17,9 @@ public class LevelTransition : MonoBehaviour
             }
         }
     }
+
+    public void EnableTransition(bool enabled)
+    {
+        CanTransition = enabled;
+    }
 }
