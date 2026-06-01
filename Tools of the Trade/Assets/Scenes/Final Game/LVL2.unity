@@ -12695,6 +12695,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9f3492d7ea53db94abd8ca0fabfcc6c1, type: 3}
   m_PrefabInstance: {fileID: 673720461}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &673720463 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 9f3492d7ea53db94abd8ca0fabfcc6c1, type: 3}
+  m_PrefabInstance: {fileID: 673720461}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &673984152
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13461,9 +13466,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4516071884836553737, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
+      propertyPath: moveSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4627868651967311650, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
+      propertyPath: maxHP
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 4627868651967311650, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
       propertyPath: onHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 1167573655}
+    - target: {fileID: 4627868651967311650, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
+      propertyPath: onHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateValue
       objectReference: {fileID: 0}
     - target: {fileID: 8083761216390122707, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
       propertyPath: m_Name
@@ -22993,6 +23010,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6736962697847939264, guid: 5c2d885c62b40744196c7ffa2918043e, type: 3}
   m_PrefabInstance: {fileID: 1167573653}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1167573655 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3492533012983761800, guid: 5c2d885c62b40744196c7ffa2918043e, type: 3}
+  m_PrefabInstance: {fileID: 1167573653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cb63b6053d5a5f42b848a9cba8b3c1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1001 &1175666689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28790,9 +28818,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 385580657}
     m_Modifications:
     - target: {fileID: 748053222161427436, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
+      propertyPath: moveset
+      value: 
+      objectReference: {fileID: 11400000, guid: a9f92829c6326aa4984b6c1aaa587539, type: 2}
+    - target: {fileID: 748053222161427436, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
       propertyPath: animator
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 673720463}
     - target: {fileID: 1096979440137216833, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.39999998
@@ -28845,6 +28877,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1108313917420936867, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
+      propertyPath: moveset
+      value: 
+      objectReference: {fileID: 11400000, guid: a9f92829c6326aa4984b6c1aaa587539, type: 2}
+    - target: {fileID: 2835996380937736092, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
+      propertyPath: dashDuration
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 2846644066495042217, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
       propertyPath: leftDustVFX
       value: 
@@ -28853,9 +28893,25 @@ PrefabInstance:
       propertyPath: rightDustVFX
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4516071884836553737, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
+      propertyPath: moveSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4516071884836553737, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
+      propertyPath: smoothTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4627868651967311650, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
+      propertyPath: maxHP
+      value: 110
+      objectReference: {fileID: 0}
     - target: {fileID: 4627868651967311650, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
       propertyPath: onHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 1167573655}
+    - target: {fileID: 4627868651967311650, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
+      propertyPath: onHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateValue
       objectReference: {fileID: 0}
     - target: {fileID: 8083761216390122707, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
       propertyPath: m_Name
