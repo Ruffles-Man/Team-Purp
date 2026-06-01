@@ -58,6 +58,8 @@ public class PlayerSFX : MonoBehaviour
 
     public void PlayAttackSFX(int attackNumber)
     {
+        Debug.Log("Playing attack SFX for attack number: " + attackNumber);
+
         switch (attackNumber)
         {
             case 1:

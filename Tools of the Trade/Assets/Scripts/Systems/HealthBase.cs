@@ -5,6 +5,7 @@ using UnityEngine.Events;
 public abstract class HealthBase : MonoBehaviour, IHealth
 {
     [SerializeField] protected int maxHP = 100;
+    [SerializeField] protected int currentHP;
 
     /// <summary>
     /// Event that is called whenever the HP changes passing the old, new, and max value.
@@ -15,7 +16,6 @@ public abstract class HealthBase : MonoBehaviour, IHealth
     public int MaxHP => maxHP;
     public int CurrentHP => currentHP;
 
-    protected int currentHP;
 
     public HitType attackType;
 
@@ -32,6 +32,8 @@ public abstract class HealthBase : MonoBehaviour, IHealth
 
     public void Damage(int amount)
     {
+        Debug.Log($"{gameObject.name} took {amount} damage!");
+
         var oldHP = currentHP;
         currentHP -= amount;
         ClampHP();
