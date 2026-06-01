@@ -152,11 +152,6 @@ Transform:
   - {fileID: 869137803}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &326803045 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4f27bcba7929cb544911e7694a2bc64d, type: 3}
-  m_PrefabInstance: {fileID: 986171937}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &326803047 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4f27bcba7929cb544911e7694a2bc64d, type: 3}
@@ -902,6 +897,8 @@ GameObject:
   - component: {fileID: 884536847}
   - component: {fileID: 884536846}
   - component: {fileID: 884536845}
+  - component: {fileID: 884536855}
+  - component: {fileID: 884536854}
   m_Layer: 0
   m_Name: Jacob
   m_TagString: Untagged
@@ -921,7 +918,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b01394b3e76f48b4095448ceaee7f190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerVFX
-  dustVFX: {fileID: 0}
+  leftDustVFX: {fileID: 0}
+  rightDustVFX: {fileID: 0}
 --- !u!114 &884536846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -934,6 +932,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6100360ab0a4b964b8d829ff583c0b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
+  hitboxOrigin: {fileID: 0}
+  moveset: {fileID: 0}
   comboStep: 0
 --- !u!114 &884536847
 MonoBehaviour:
@@ -949,7 +949,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCrouch
   crouchSpeed: 3.5
   smoothTime: 0.25
-  body: {fileID: 0}
 --- !u!114 &884536848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -998,7 +997,6 @@ MonoBehaviour:
   sprintMultiplier: 2.2
   timeToMaxSprint: 1
   moveSpeed: 3
-  body: {fileID: 0}
 --- !u!143 &884536851
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1036,7 +1034,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55387aeb10f1df24b87d7fc6a5f1361f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  body: {fileID: 0}
 --- !u!4 &884536853
 Transform:
   m_ObjectHideFlags: 0
@@ -1053,6 +1050,44 @@ Transform:
   - {fileID: 1214894507}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -230, z: 0}
+--- !u!114 &884536854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884536844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e759354b48276740bb753eaa0f5c78f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSFX
+  audioSource: {fileID: 0}
+  movementClip: {fileID: 0}
+  movementSFXDelay: 0.4
+  jumpClip: {fileID: 0}
+  landClip: {fileID: 0}
+  enterExitCrouchClip: {fileID: 0}
+  CrouchSFXDelay: 0.3
+  dashClip: {fileID: 0}
+  attack1Clip: {fileID: 0}
+  attack2Clip: {fileID: 0}
+  attack3Clip: {fileID: 0}
+--- !u!114 &884536855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884536844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 400e6b43d9e70194fb4c381929d3800e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerLockOn
+  lockOnRange: 10
+  lockOnAngle: 45
+  lockedOnTarget: {fileID: 0}
 --- !u!1 &984003526
 GameObject:
   m_ObjectHideFlags: 0
@@ -1247,7 +1282,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9100000, guid: 1077d9a3626ffd44f94f2033f7c57fb3, type: 2}
     - target: {fileID: 6220981513829150466, guid: 4f27bcba7929cb544911e7694a2bc64d, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6220981513829150466, guid: 4f27bcba7929cb544911e7694a2bc64d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f3573b67e55775e44a896942794337a8, type: 2}
+    - target: {fileID: 6220981513829150466, guid: 4f27bcba7929cb544911e7694a2bc64d, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 83c589e45a87bb84db386630c7586169, type: 2}
     m_RemovedComponents: []
@@ -1721,6 +1764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 751a7747db2e6e1418df29559908cb42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  characters: 0000
 --- !u!4 &1260736627
 Transform:
   m_ObjectHideFlags: 0
@@ -2263,6 +2307,8 @@ GameObject:
   - component: {fileID: 1643422817}
   - component: {fileID: 1643422816}
   - component: {fileID: 1643422815}
+  - component: {fileID: 1643422825}
+  - component: {fileID: 1643422824}
   m_Layer: 0
   m_Name: Naomi
   m_TagString: Untagged
@@ -2282,7 +2328,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b01394b3e76f48b4095448ceaee7f190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerVFX
-  dustVFX: {fileID: 0}
+  leftDustVFX: {fileID: 0}
+  rightDustVFX: {fileID: 0}
 --- !u!114 &1643422816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2295,6 +2342,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6100360ab0a4b964b8d829ff583c0b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
+  hitboxOrigin: {fileID: 0}
+  moveset: {fileID: 0}
   comboStep: 0
 --- !u!114 &1643422817
 MonoBehaviour:
@@ -2310,7 +2359,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCrouch
   crouchSpeed: 3.5
   smoothTime: 0.25
-  body: {fileID: 326803045}
 --- !u!114 &1643422818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2359,7 +2407,6 @@ MonoBehaviour:
   sprintMultiplier: 2.2
   timeToMaxSprint: 1
   moveSpeed: 3
-  body: {fileID: 326803045}
 --- !u!143 &1643422821
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2397,7 +2444,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55387aeb10f1df24b87d7fc6a5f1361f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  body: {fileID: 326803045}
 --- !u!4 &1643422823
 Transform:
   m_ObjectHideFlags: 0
@@ -2414,6 +2460,44 @@ Transform:
   - {fileID: 326803047}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 220, z: 0}
+--- !u!114 &1643422824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643422814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e759354b48276740bb753eaa0f5c78f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSFX
+  audioSource: {fileID: 0}
+  movementClip: {fileID: 0}
+  movementSFXDelay: 0.4
+  jumpClip: {fileID: 0}
+  landClip: {fileID: 0}
+  enterExitCrouchClip: {fileID: 0}
+  CrouchSFXDelay: 0.3
+  dashClip: {fileID: 0}
+  attack1Clip: {fileID: 0}
+  attack2Clip: {fileID: 0}
+  attack3Clip: {fileID: 0}
+--- !u!114 &1643422825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643422814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 400e6b43d9e70194fb4c381929d3800e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerLockOn
+  lockOnRange: 10
+  lockOnAngle: 45
+  lockedOnTarget: {fileID: 0}
 --- !u!1001 &1818070882
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2478,6 +2562,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: jacob_complete
       objectReference: {fileID: 0}
+    - target: {fileID: 6220981513829150466, guid: 9f3492d7ea53db94abd8ca0fabfcc6c1, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6220981513829150466, guid: 9f3492d7ea53db94abd8ca0fabfcc6c1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 979f41f4718b264438f4a85a1dc8353b, type: 2}
+    - target: {fileID: 6220981513829150466, guid: 9f3492d7ea53db94abd8ca0fabfcc6c1, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: 9f3492d7ea53db94abd8ca0fabfcc6c1, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 65702495048144492, guid: 9f3492d7ea53db94abd8ca0fabfcc6c1, type: 3}
