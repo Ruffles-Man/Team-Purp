@@ -14,8 +14,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Development/Thomas/Cutscene.unity
     guid: d14a1fd8b868c914a8ed2bb5663c83dd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Development/PlayerBase/PlayerActionBase.unity
     guid: eb86a68bf3b042d44a5fa6477b34f8fa
+  - enabled: 1
+    path: Assets/Scenes/Development/Juillian/PlayerHitReaction.unity
+    guid: bd10787b091bd9744a862e58299b574d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
