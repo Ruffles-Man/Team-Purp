@@ -22937,18 +22937,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6736962697847939264, guid: 5c2d885c62b40744196c7ffa2918043e, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6736962697847939264, guid: 5c2d885c62b40744196c7ffa2918043e, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6736962697847939264, guid: 5c2d885c62b40744196c7ffa2918043e, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6736962697847939264, guid: 5c2d885c62b40744196c7ffa2918043e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -28881,6 +28869,10 @@ PrefabInstance:
       propertyPath: moveset
       value: 
       objectReference: {fileID: 11400000, guid: a9f92829c6326aa4984b6c1aaa587539, type: 2}
+    - target: {fileID: 1891777424187585209, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2835996380937736092, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
       propertyPath: dashDuration
       value: 0.25
@@ -28904,6 +28896,10 @@ PrefabInstance:
     - target: {fileID: 4627868651967311650, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
       propertyPath: maxHP
       value: 110
+      objectReference: {fileID: 0}
+    - target: {fileID: 4627868651967311650, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
+      propertyPath: healthZero.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4627868651967311650, guid: 96958f61bb3a6394ca80cdfea71d7f89, type: 3}
       propertyPath: onHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
