@@ -24,10 +24,12 @@ public class EnemySpawner : MonoBehaviour
 
     int enemiesSpawned = 0;
     float elapsedTime = 0f;
-    
+    private ParticleManager particleManager;
+
     void Start()
     {
         BuildSpawnPool();
+        particleManager = FindAnyObjectByType<ParticleManager>();
     }
 
     private List<GameObject> spawnPool = new List<GameObject>();
@@ -78,7 +80,8 @@ public class EnemySpawner : MonoBehaviour
     {
         int randomIndex = UnityEngine.Random.Range(0, spawnPoints.Length);
         Transform spawnPoint = spawnPoints[randomIndex];
-        Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation).GetComponent<EnemyBehaviour>();
+        var enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation).GetComponent<EnemyBehaviour>();
+        enemy.GetComponentInChildren<EnemyHittable>().onHit.AddListener(particleManager.SpawnHitEffect);
         enemiesSpawned++;
         EnemiesAlive++;
     }

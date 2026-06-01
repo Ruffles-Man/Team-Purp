@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class EnemyHittable : MonoBehaviour, IHittable
 {
-    [SerializeField] UnityEvent<HitInfo> onHit;
+    public UnityEvent<HitInfo> onHit;
     private readonly int highHash = Animator.StringToHash("HighHit");
     private readonly int midHash = Animator.StringToHash("MidHit");
     private readonly int backHash = Animator.StringToHash("BackLaunch");

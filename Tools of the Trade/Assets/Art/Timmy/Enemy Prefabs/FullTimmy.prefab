@@ -476,7 +476,7 @@ MonoBehaviour:
   minWalkPointRange: 2
   timeBetweenAttacks: 5
   sightRange: 1000
-  attackRange: 0.8
+  attackRange: 1.2
   playerInSightRange: 0
   playerInAttackRange: 0
   MaxSpeed: 3.5
