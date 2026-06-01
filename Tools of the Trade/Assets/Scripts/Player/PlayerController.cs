@@ -6,8 +6,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerJump))]
 [RequireComponent(typeof(PlayerCrouch))]
 [RequireComponent(typeof(PlayerAttack))]
-
 [RequireComponent(typeof(PlayerLockOn))]
+[RequireComponent(typeof(PauseSystem))]
 public class PlayerController : MonoBehaviour
 {
     PlayerMovement playerMovement;
@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     PlayerCrouch playerCrouch;
     PlayerAttack playerAttack;
     PlayerLockOn playerLockOn;
+    PauseSystem pauseSystem;
 
     private InputSystem_Actions inputActions;
 
@@ -30,6 +31,19 @@ public class PlayerController : MonoBehaviour
         playerAttack = GetComponent<PlayerAttack>();
 
         inputActions = new InputSystem_Actions();
+
+        if (pauseSystem == null)
+        {
+            GameObject managerObj = GameObject.Find("PauseSystem");
+            if (managerObj != null)
+            {
+                pauseSystem = managerObj.GetComponent<PauseSystem>();
+            }
+            else
+            {
+                Debug.LogWarning($"[Enemy] Could not find a ParticleManager in the scene context of {gameObject.name}!");
+            }
+        }
     }
 
     void OnEnable()
@@ -44,6 +58,8 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.AttackOne.performed += HandleAttackOne;
         inputActions.Player.AttackTwo.performed += HandleAttackTwo;
         inputActions.Player.LockOn.performed += HandleLockOn;
+
+        inputActions.Player.Pause.performed += pauseSystem.TogglePauseGame;
     }
 
     void OnDisable()
@@ -56,10 +72,13 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.AttackOne.performed -= HandleAttackOne;
         inputActions.Player.AttackTwo.performed -= HandleAttackTwo;
         inputActions.Player.LockOn.performed -= HandleLockOn;
+
+        inputActions.Player.Pause.performed -= pauseSystem.TogglePauseGame;
     }
 
     void Update()
     {
+        if (pauseSystem.GetIsPaused()) { return; }
         playerJump.PerformVerticalMovement();
         if (!playerMovement._Locked) playerMovement.PerformSprint(inputActions);
         if (!playerMovement._Locked) playerMovement.PerformMove(inputActions);
