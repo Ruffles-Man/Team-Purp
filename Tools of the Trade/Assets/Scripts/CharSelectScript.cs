@@ -12,15 +12,15 @@ public class CharSelectScript : MonoBehaviour
 
     public void SelectJacob()
     {
-        DataManager.Instance.characters[0] = true;
-        DataManager.Instance.characters[1] = false;
+        PlayerManager.Instance.characters[0] = true;
+        PlayerManager.Instance.characters[1] = false;
         SceneManager.LoadScene(2);
     }
 
     public void SelectNaomi()
     {
-        DataManager.Instance.characters[0] = false;
-        DataManager.Instance.characters[1] = true;
+        PlayerManager.Instance.characters[0] = false;
+        PlayerManager.Instance.characters[1] = true;
         SceneManager.LoadScene(2);
     }
 }

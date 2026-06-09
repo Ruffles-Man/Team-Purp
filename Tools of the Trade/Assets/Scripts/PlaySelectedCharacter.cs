@@ -11,12 +11,12 @@ public class PlaySelectedCharacter : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (DataManager.Instance.characters[0] == true)
+        if (PlayerManager.Instance.characters[0] == true)
         {
             JacobPlayer.SetActive(true);
             NaomiPlayer.SetActive(false);
         }
-        else if (DataManager.Instance.characters[1] == true)
+        else if (PlayerManager.Instance.characters[1] == true)
         {
             JacobPlayer.SetActive(false);
             NaomiPlayer.SetActive(true);

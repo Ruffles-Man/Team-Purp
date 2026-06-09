@@ -4,15 +4,25 @@ using UnityEngine.SceneManagement;
 
 public class PauseSystem : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] AudioSource backgroundMusic;
     bool isPaused;
+    
     public void TogglePauseGame(InputAction.CallbackContext context)
     {
         isPaused = !isPaused;
         Time.timeScale = isPaused ? 0 : 1;
         pauseMenu.SetActive(isPaused);
+        if (isPaused)
+        {
+            backgroundMusic.Pause();
+        }
+        else
+        {
+            backgroundMusic.UnPause();
+        }
     }
+    
     public bool GetIsPaused() { return isPaused; }
 
     public void MainMenu()
