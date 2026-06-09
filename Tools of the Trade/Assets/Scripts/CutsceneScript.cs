@@ -12,12 +12,12 @@ public class CutsceneScript : MonoBehaviour
 
     void Start()
     {
-        if (DataManager.Instance.characters[0] == true)
+        if (PlayerManager.Instance.characters[0] == true)
         {
             JacobCutscene.SetActive(true);
             ActiveCutscene = JacobCutscene;
         }
-        else if (DataManager.Instance.characters[1] == true)
+        else if (PlayerManager.Instance.characters[1] == true)
         {
             NaomiCutscene.SetActive(true);
             ActiveCutscene = NaomiCutscene;

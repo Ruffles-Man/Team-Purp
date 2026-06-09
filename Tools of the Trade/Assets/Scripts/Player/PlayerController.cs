@@ -85,28 +85,34 @@ public class PlayerController : MonoBehaviour
         if (!playerCrouch._Locked) playerCrouch.PerformCrouch(inputActions);
     }
 
+    private bool IsGamePaused()
+    {
+        return pauseSystem != null && pauseSystem.GetIsPaused();
+    }
+
     protected void HandleLockOn(InputAction.CallbackContext context)
     {
+        if (IsGamePaused()) return;
         playerLockOn.PerformLockOn(context);
     }
 
     protected void HandleJump(InputAction.CallbackContext context)
     {
-        if (playerJump._Locked) return;
+        if (IsGamePaused() || playerJump._Locked) return;
 
         playerJump.PerformJump();
     }
 
     protected void HandleDash(InputAction.CallbackContext context)
     {
-        if (playerDash._Locked) return;
+        if (IsGamePaused() || playerDash._Locked) return;
 
         StartCoroutine(DashCoroutine(context));
     }
 
     protected void HandleCrouch(InputAction.CallbackContext context)
     {
-        if (playerCrouch._Locked) return;
+        if (IsGamePaused() || playerCrouch._Locked) return;
 
         if (context.performed)
         {
@@ -133,6 +139,8 @@ public class PlayerController : MonoBehaviour
 
     protected void HandleAttackOne(InputAction.CallbackContext context)
     {
+        if (IsGamePaused()) return;
+
         playerMovement.Lock();
         playerCrouch.Lock();
 
@@ -143,6 +151,8 @@ public class PlayerController : MonoBehaviour
 
     protected void HandleAttackTwo(InputAction.CallbackContext context)
     {
+        if (IsGamePaused()) return;
+
         playerMovement.Lock();
         playerCrouch.Lock();
         playerAttack.PerformAttackTwo();

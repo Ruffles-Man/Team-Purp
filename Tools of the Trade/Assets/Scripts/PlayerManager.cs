@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-public class DataManager : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
-    public static DataManager Instance { get; private set; }
+    public static PlayerManager Instance { get; private set; }
 
     public bool[] characters = new bool[2];
 
