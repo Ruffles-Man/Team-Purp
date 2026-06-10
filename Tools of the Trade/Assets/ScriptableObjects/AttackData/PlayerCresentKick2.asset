@@ -20,7 +20,7 @@ MonoBehaviour:
   boxSize: {x: 0, y: 0, z: 0}
   sphereRadius: 0
   attackType: 3
-  damage: 15
+  damage: 23
   knockback: {x: 0, y: 0}
   startupFrames: 0
   activeFrames: 0

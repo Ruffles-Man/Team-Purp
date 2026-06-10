@@ -899,6 +899,7 @@ GameObject:
   - component: {fileID: 884536845}
   - component: {fileID: 884536855}
   - component: {fileID: 884536854}
+  - component: {fileID: 884536856}
   m_Layer: 0
   m_Name: Jacob
   m_TagString: Untagged
@@ -1088,6 +1089,20 @@ MonoBehaviour:
   lockOnRange: 10
   lockOnAngle: 45
   lockedOnTarget: {fileID: 0}
+--- !u!114 &884536856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884536844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62fa29d6bd0bb7745a32127c1aca7878, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PauseSystem
+  pauseMenu: {fileID: 0}
+  backgroundMusic: {fileID: 0}
 --- !u!1 &984003526
 GameObject:
   m_ObjectHideFlags: 0
@@ -1722,7 +1737,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1214894506}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 9f3492d7ea53db94abd8ca0fabfcc6c1, type: 3}
+  m_Avatar: {fileID: 9000000, guid: fedab7f96c1d61742afe7e2202aa96a8, type: 3}
   m_Controller: {fileID: 9100000, guid: 1077d9a3626ffd44f94f2033f7c57fb3, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -2309,6 +2324,7 @@ GameObject:
   - component: {fileID: 1643422815}
   - component: {fileID: 1643422825}
   - component: {fileID: 1643422824}
+  - component: {fileID: 1643422826}
   m_Layer: 0
   m_Name: Naomi
   m_TagString: Untagged
@@ -2498,6 +2514,20 @@ MonoBehaviour:
   lockOnRange: 10
   lockOnAngle: 45
   lockedOnTarget: {fileID: 0}
+--- !u!114 &1643422826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643422814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62fa29d6bd0bb7745a32127c1aca7878, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PauseSystem
+  pauseMenu: {fileID: 0}
+  backgroundMusic: {fileID: 0}
 --- !u!1001 &1818070882
 PrefabInstance:
   m_ObjectHideFlags: 0
