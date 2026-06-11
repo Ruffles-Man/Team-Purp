@@ -14,6 +14,7 @@ public class PlayerAttack : LockableMonoBehavior
 
     private Animator animator;
     private PlayerVFX playerVFX;
+    private PlayerHealth playerHealth;
 
     private readonly int kickParamHash = Animator.StringToHash("kick");
     private readonly int punchParamHash = Animator.StringToHash("punch");
@@ -31,6 +32,7 @@ public class PlayerAttack : LockableMonoBehavior
     {
         animator = GetComponentInChildren<Animator>();
         playerVFX = GetComponent<PlayerVFX>();
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     private void OnDestroy()

@@ -6,6 +6,7 @@ public class PlayerKick : LockableMonoBehavior
 {
     CharacterController controller;
     Animator animator;
+    PlayerHealth playerHealth;
 
     private readonly int kickTwoHash = Animator.StringToHash("Inside Crescent Kick");
     private readonly int kickOneHash = Animator.StringToHash("Mma Kick");
@@ -17,12 +18,15 @@ public class PlayerKick : LockableMonoBehavior
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     /// <summary>
     /// Performs an initial kick if first entering Attack substate machine and initializes comboStep to 0. If already in Attack it triggers the next animation in the string by incrementing comboStep by one
     /// </summary>
     public void PerformKick() {
+        if (playerHealth.CurrentHP <= 0) return;
+
         // 1. Get the current state
         var stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         

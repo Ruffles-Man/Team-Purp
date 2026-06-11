@@ -46,6 +46,7 @@ public class PlayerMovement : LockableMonoBehavior
     private PlayerSFX playerSFX;
     private PlayerVFX playerVFX;
     private PlayerLockOn playerLockOn;
+    private PlayerHealth playerHealth;
     private CharacterController controller;
     private Animator animator;
     private Vector2 velocity = Vector2.zero;
@@ -62,6 +63,7 @@ public class PlayerMovement : LockableMonoBehavior
         playerVFX = GetComponent<PlayerVFX>();
         playerSFX = GetComponent<PlayerSFX>();
         playerLockOn = GetComponent<PlayerLockOn>();
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     public void SprintBegin()
@@ -104,6 +106,12 @@ public class PlayerMovement : LockableMonoBehavior
 
     public void PerformMove(InputSystem_Actions actions)
     {
+        // prevent movement if player is dead
+        if (playerHealth.CurrentHP <= 0)
+        {
+            return;
+        }
+
         // input processing
         Vector2 moveInput = actions.Player.Move.ReadValue<Vector2>();
         SmoothMoveInput = Vector2.SmoothDamp(SmoothMoveInput, moveInput, ref velocity, smoothTime);

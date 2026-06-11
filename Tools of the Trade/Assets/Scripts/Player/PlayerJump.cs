@@ -15,6 +15,7 @@ public class PlayerJump : LockableMonoBehavior
     Animator animator;
     PlayerSFX playerSFX;
     PlayerVFX playerVFX;
+    PlayerHealth playerHealth;
 
     /// <summary>
     /// Current vertical velocity of the player. This is modified by jumping and gravity and applied to the character controller each frame in PerformVerticalMovement.
@@ -50,6 +51,7 @@ public class PlayerJump : LockableMonoBehavior
         animator = GetComponentInChildren<Animator>();
         playerSFX = GetComponent<PlayerSFX>();
         playerVFX = GetComponent<PlayerVFX>();
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     /// <summary>
@@ -100,6 +102,7 @@ public class PlayerJump : LockableMonoBehavior
     /// </summary>
     public void PerformJump()
     {
+        if (playerHealth.CurrentHP <= 0) return;
         if (numJumps <= 0) return;
 
         jumpElapsedTime = 0f;
